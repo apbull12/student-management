@@ -7,6 +7,7 @@ class StudentsController < ApplicationController
   def index
     if params[:query]
       @students = Student.where('name ILIKE ? AND user_id = ?', "%#{params[:query]}%", current_user.id)
+      logger.debug "searching the student for query #{params[:query]}..."
     else
       @students = Student.where(user_id: current_user.id)
     end

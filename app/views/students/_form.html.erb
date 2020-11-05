@@ -1,32 +1,35 @@
-<%= form_with(model: student, local: true) do |form| %>
-  <% if student.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
-      <ul>
-      <% student.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+<%= form_with(model: student, local: true, class: 'form-horizontal') do |form| %>
+  <table class="table table-striped table-hover .table-responsive">
+    <% if student&.errors&.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
-  <div class="field">
-    <%= form.label :subject %>
-    <%= form.text_field :subject %>
-  </div>
-
-  <div class="field">
-    <%= form.label :mark %>
-    <%= form.number_field :mark %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+        <ul>
+          <% student.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% logger.debug "Error" + pluralize(student.errors.count, "error prohibited this student from being saved:") + message %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <tbody>
+    <tr>
+      <td> <%= form.label :name %></td>
+      <td> <%= form.text_field :name, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <td> <%= form.label :subject %></td>
+      <td> <%= form.text_field :subject, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <td> <%= form.label :mark %></td>
+      <td> <%= form.number_field :mark, class: "form-control" %></td>
+    </tr>
+    <tr class="form-group">
+      <td><button type="submit" class="btn btn-success btn-block">Submit</button></td>
+    </tr>
+    </tbody>
+  </table>
 <% end %>
